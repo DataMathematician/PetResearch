@@ -16,9 +16,12 @@ def predict_digit(img):
     img = np.array(img)
     # изменение размерности для поддержки модели ввода и нормализации
     img = img.reshape(1, 28, 28, 1)
-    img = img/255.0
+    #img = img/256
+    print(img.reshape(28,28))
     # предстказание цифры
     res = model.predict([img])[0]
+    print(res)
+    print()
     return np.argmax(res), max(res)
 
 
@@ -29,7 +32,7 @@ class App(tk.Tk):
         self.x = self.y = 0
         
         # Создание элементов
-        self.canvas = tk.Canvas(self, width=300, height=300, bg = "white", cursor="cross")
+        self.canvas = tk.Canvas(self, width=300, height=300, bg = "black", cursor="cross")
         self.label = tk.Label(self, text="Думаю..", font=("Helvetica", 48))
         self.classify_btn = tk.Button(self, text="Распознать", command=self.classify_handwriting)
         self.button_clear = tk.Button(self, text="Очистить", command=self.clear_all)
@@ -57,8 +60,8 @@ class App(tk.Tk):
     def draw_lines(self, event):
         self.x = event.x
         self.y = event.y
-        r = 8
-        self.canvas.create_oval(self.x-r, self.y-r, self.x + r, self.y + r, fill='black')
+        r = 10
+        self.canvas.create_oval(self.x-r, self.y-r, self.x + r, self.y + r, fill='white',outline='white')
 
 
 app = App()
